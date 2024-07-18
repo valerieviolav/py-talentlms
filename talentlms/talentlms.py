@@ -219,11 +219,14 @@ class api(object):
     def category_leafs_and_courses(self, category_id):
         return self.get('categoryleafsandcourses', {'id': category_id})
 
-    def get_user_progress_in_units(self, unit_id, user_id):
-        return self.get('getusersprogressinunits', {'unit_id': unit_id, 'user_id': user_id})
+    def get_user_progress_in_units(self, unit_id, user_id=None):
+        params = {'unit_id': unit_id}
+        if user_id is not None:
+            params['user_id'] = user_id
+        return self.get('getusersprogressinunits', params)
 
     def get_test_answers(self, test_id, user_id):
-        raise NotImplementedError
+        return self.get('gettestanswers', {'test_id': test_id, 'user_id': user_id})
 
     def get_survey_answers(self, survey_id, user_id):
         raise NotImplementedError
